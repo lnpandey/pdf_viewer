@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Library</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        iframe {
+            border: none;
+        }
+
+        #sidebar {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex flex-column flex-lg-row h-100">
+        <!-- Sidebar -->
+        <div id="sidebar" class="bg-light border-end" style="flex: 0 0 25%;">
+            <h4 class="text-center py-3">PDF Library</h4>
+            <ul class="list-group">
+                <!-- Dynamically load PDF names -->
+                {% for pdf in pdf_files %}
+                <li
+                    class="list-group-item list-group-item-action"
+                    onclick="loadPDF('{{ pdf.path }}')"
+                >
+                    {{ pdf.name }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Viewer -->
+        <div id="viewer" class="flex-grow-1">
+            <iframe id="pdfFrame" src="" class="w-100 h-100"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function loadPDF(pdfPath) {
+            const pdfFrame = document.getElementById("pdfFrame");
+            pdfFrame.src = `/${pdfPath}`;
+        }
+    </script>
+</body>
+</html>
